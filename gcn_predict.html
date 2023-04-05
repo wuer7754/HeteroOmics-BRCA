@@ -1,0 +1,138 @@
+{% extends 'layout.html' %}
+
+{% block title %}GCN: Predict Cancer Subtypes{% endblock %}
+
+{% block content %}
+
+    <header>
+      <h1>GCN: Predict Cancer Subtypes</h1>
+    </header>
+
+    <section>
+      <h2>1. Introduce GCN and Predict Labels</h2>
+      <p>The Graph Convolutional Network (GCN) is a deep learning algorithm that is particularly suited for analyzing graph-structured data. In the context of cancer research, GCN can be used to predict different CLAUDIN_SUBTYPE labels, which are important for understanding the biology of different cancer subtypes and for developing personalized treatment plans.</p>
+    </section>
+
+    <section>
+      <h2>2. Introduce Steps to Run GCN</h2>
+      <ol>
+        <li>Run the autoencoder and download the result file named "autoencoder_latent_100.csv".</li>
+        <li>Run SNF and download the SNF matrix.</li>
+        <li>Run the GCN model and download the result file.</li>
+      </ol>
+    </section>
+
+      <section>
+        <h2>3. Train and Test GCN</h2>
+          <p>
+              When training and testing graph convolutional neural networks (GCNs), there are several hyperparameters that need to be set by the user, such as the number of layers, the number of hidden units, the learning rate, and the regularization strength. Additionally, in order to test the GCN's performance, users need to provide their own samples, including PATIENT_ID and corresponding class labels. It is important to choose a diverse and representative set of samples to ensure that the GCN can generalize well to unseen data. Properly setting the hyperparameters and selecting appropriate samples for testing can greatly impact the GCN's performance and ability to make accurate predictions.
+          </p>
+        <form method="POST" action="/run-gcn" enctype="multipart/form-data">
+    <div class="form-input">
+      <label for="autoencoder">Autoencoder Result:</label>
+      <input type="file" name="autoencoder" id="autoencoder">
+    </div>
+    <div class="form-input">
+      <label for="snf">SNF Matrix:</label>
+      <input type="file" name="snf" id="snf">
+    </div>
+    <div class="form-input">
+      <label for="labels">All Sample:</label>
+      <input type="file" name="labels" id="labels">
+    </div>
+    <div class="form-input">
+      <label for="test_sample">Test Sample:</label>
+      <input type="file" name="test_sample" id="test_sample" >
+    </div>
+     <div class="form-input">
+      <label for="threshold">Threshold:</label>
+      <input type="number" name="threshold" id="threshold" value = "0.005" step ="0.001">
+    </div>
+     <div class="form-input">
+      <label for="lr">learning_rate:</label>
+      <input type="number" name="lr" id="lr" value = "0.001" step = "0.1" >
+    </div>
+    <div class="form-input">
+      <label for="epoch">epoch:</label>
+      <input type="number" name="epoch" id="epoch" value = "200" step = "50" >
+    </div>
+     <div class="form-input">
+      <label for="hidden">Hidden num:</label>
+      <input type="number" name="hidden" id="hidden" value = "64" step = "10" >
+    </div>
+     <div class="form-input">
+      <label for="nclass"> Classes num (output num):</label>
+      <input type="number" name="nclass" id="nclass" value = "7" step = "1" >
+    </div>
+     <div class="form-input">
+      <label for="patient">Early Stop (Stop before iteration convergence of training dataset):</label>
+      <input type="number" name="patient" id="patient" value = "20" step = "1" >
+    </div>
+     <div class="form-input">
+      <label for="dropout">Dropout rate ( methods to avoid overfitting):</label>
+      <input type="number" name="dropout" id="dropout" value = "0.5" step = "0.1" >
+    </div>
+    <div class="form-input">
+      <label for="weight_decay">Weight Decay (L2 loss on parameters, methods to avoid overfitting):</label>
+      <input type="number" name="weight_decay" id="weight_decay" value = "0.01" step = "0.01" >
+    </div>
+    <div class = "device">
+        <label for="device">Select GPUs or CPUs to compute:</label>
+            <select id="device" name="device">
+<!--label for = select id时，浏览器会将光标移动到相应的表单元素上。此外，这也是一个无障碍性的最佳实践，使屏幕阅读器能够正确地将标签读给用户，让他们知道该表单元素的用途-->
+                  <option value="cpu">CPU</option>
+                <option value="GPU">GPU</option>
+            </select>
+    </div>
+    <div class="form-button">
+      <button type = "submit" onclick = "return checkUpload()">Run GCN</button>
+    </div>
+  </form>
+      </section>
+
+    <section>
+      <h2>4. Download the best epoch GCN model and show the model info</h2>
+        <p> "The GCN_model.state_dict() method in PyTorch saves the state dictionary of a graph convolutional network (GCN) model, which includes all the learnable parameters of the model, such as weights and biases, as well as other metadata necessary for restoring the model's state. This method is typically used to save the model's state during training, so that it can be easily reloaded for inference or further training in the future. The saved state dictionary can be loaded back into a model using torch.load() and can be used for tasks such as transfer learning, fine-tuning, or deployment."</p>
+         <a href="/download-best-model" target="_blank" >
+            <button>Download GCN state dict in best epoch</button>
+        </a>
+
+        <p>"By using pytorchviz to visualize PyTorch neural network models, users can easily generate detailed and informative graphs that help them better understand the structure and behavior of their models, which can facilitate model optimization and debugging."</p>
+        <a href="/show_snf_info" target="_blank" >
+            <button>Show GCN Info</button>
+        </a>
+
+    </section>
+    <section>
+        <h2> 5.Download GCN Predict Results and show the KM survival analysis</h2>
+        <p>Pam50 + Claudin-low subtypes are widely used in breast cancer molecular subtyping. These subtypes are categorized into seven distinct classes, namely "LumB", "Her2", "LumA", "Normal", "claudin-low", "Basal", and "NC". The classification model based on Graph Convolutional Networks (GCN) achieves an accuracy of 0.76. These subtypes have strong correlations with breast cancer prognosis indicators such as 5-year survival rate.
+        </p>
+        <a href="/download_predict_test_sample" target="_blank" >
+            <button>Show GCN Predict for Test Sample</button>
+        </a>
+        <p>
+            KM survival curve is a commonly used method for evaluating the correlation between Claudin-low subtype and 5-year survival rate. Moreover, COX model is a commonly used model for survival analysis studies. In this study, we have selected 15 clinical indicators and used them as predictors in the COX model. You can refer to our analysis report for details on these indicators. We also provide a processed COX_Breast_all.csv file which can be used to select other clinical endpoints such as cancer recurrence.
+        </p>
+        <a href="/show_KM_survival_analysis" target="_blank" >
+            <button>Show KM and Cox survival analysis</button>
+        </a>
+
+    </section>
+{% endblock %}
+<script>
+    function checkUpload() {
+  // 获取所有的文件输入框
+  const fileInputs = document.querySelectorAll('input[type="file"]');
+
+  // 检查每个文件输入框是否上传了文件
+  for (let i = 0; i < fileInputs.length; i++) {
+    if (!fileInputs[i].value) {
+      alert(`Please upload ${fileInputs[i].name} file.`);
+      return false;
+    }
+  }
+
+  return true;
+}
+
+</script>

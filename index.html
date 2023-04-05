@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+
+{% block title %}home page{% endblock %}
+
+{% block content %}
+    <div class = 'navbar'>
+
+    </div>
+
+    <!-- Main content -->
+    <h1>Breast Cancer Subtype Discovery</h1>
+    <p>Breast cancer is a heterogeneous disease that can be classified into several subtypes based on molecular characteristics. These subtypes have different prognoses and responses to treatment, making it important to accurately identify the subtype of each patient's cancer. In this webpage, we will explore various methods for discovering the subtype of a patient's breast cancer.</p>
+
+    <h2 id="raw-data">The Raw Data</h2>
+    <p>The raw data for this analysis consists of gene expression profiles for patients with breast cancer. These profiles are obtained from high-throughput sequencing technologies and measure the levels of expression of thousands of genes in each patient's cancer sample.</p>
+
+    <h2 id="reduce-dimension">Reduce Dimension</h2>
+    <p>In order to make sense of the high-dimensional data, it is often necessary to reduce the dimension of the data to a lower number of features that capture the most important information. This can be done using various techniques such as principal component analysis (PCA) or t-SNE.</p>
+
+    <h2 id="patient-to-patient-network">Patient-to-Patient Network</h2>
+    <p>Once the data has been reduced to a lower number of features, it can be used to construct a patient-to-patient network. In this network, each patient is represented as a node and edges between nodes represent similarities between patients based on their gene expression profiles. This network can then be used to identify clusters of patients with similar gene expression profiles, which may correspond to different subtypes of breast cancer.</p>
+
+    <h2 id="using-gcn-to-predict-subtype">Using GCN to Predict Subtype</h2>
+    <p>Graph convolutional networks (GCNs) are a type of machine learning algorithm that can be used to make predictions based on graph-structured data. In this case, the patient-to-patient network can be used as input to a GCN, which can then be trained to predict the subtype of each patient's cancer based on the gene expression profiles of the other patients in the network. This approach has been shown to be effective for predicting the subtype of breast cancer and can help to improve the accuracy and precision of subtype prediction compared to other methods.</p>
+
+{% endblock %}

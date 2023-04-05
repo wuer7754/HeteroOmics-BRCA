@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block title %}Data Cleaning Tools{% endblock %}
+
+{% block content %}
+
+
+	<header>
+		<h1>Data Cleaning Tool</h1>
+	</header>
+		<section>
+			<h2> File Upload </h2>
+		<form method="post" action="/check_is_null" enctype="multipart/form-data">
+			<label for="file">Upload data file:</label>
+			<input type="file" name="file" id="file">
+
+			<input type="submit" name="upload" value="Upload">
+		</form>
+		</section>
+		<section>
+		<h2>Data Cleaning</h2>
+		<form method="post" action="/clean_data">
+			<p>Select cleaning options:</p>
+			<input type="checkbox" name="remove_null" id="remove_null" value="1">
+			<label for="remove_null">Remove null values</label><br>
+			<input type="checkbox" name="remove_duplicates" id="remove_duplicates" value="1">
+			<label for="remove_duplicates">Remove duplicate rows</label><br>
+			<input type="checkbox" name="standardize" id="standardize" value="1">
+			<label for="standardize">Missing values imputation</label><br>
+			<input type="submit" name="clean" value="Clean">
+		</form>
+		</section>
+
+	<section>
+	<h2>Preview Data</h2>
+	<a href="/process_null_data"><button>Download Clean Data</button></a>
+
+
+</section>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+{% block title %}Download Zip File{% endblock %}
+{% block content %}
+
+  <header>
+      <h1>Download: The Raw Data</h1>
+  </header>
+  <h1> Introduction </h1>
+  <p>The METABRIC dataset contains comprehensive molecular and clinical data for patients with breast cancer. It is one of the largest publicly available breast cancer datasets and provides valuable insights into the molecular mechanisms underlying breast cancer. </p>
+  <p>The METABRIC dataset includes several types of data, including:</p>
+  <h2><a href = {{url_for('show_profile_report', filename = "cna_report.html") }} >Copy Number Alterations (CNA) Data</a></h2>
+  <p>The CNA data in the METABRIC dataset contains information on genomic alterations in the form of copy number changes (gains or losses) for each patient. This data provides insights into the genomic landscape of breast cancer and can help to identify potential targets for therapeutic intervention.</p>
+  <h2>mRNA Agilent Microarray Z-Scores Data</h2>
+  <p>The data_mrna_agilent_microarray_zscores data in the METABRIC dataset contains the mRNA expression levels of thousands of genes for each patient. This data can provide insights into the transcriptional changes that occur in breast cancer and can help to identify potential targets for therapeutic intervention.</p>
+  <h2>Methylation Promoters and RRBS Data</h2>
+  <p>The data_methylation_promoters_rrbs data in the METABRIC dataset contains information on DNA methylation patterns in the promoter regions of genes and in regions of Reduced Representation Bisulfite Sequencing (RRBS) for each patient. DNA methylation is an important epigenetic modification that can play a role in the development and progression of breast cancer. This data provides insights into the DNA methylation landscape of breast cancer and can help to identify potential targets for therapeutic intervention.</p>
+
+  <h1>Zip File Contents</h1>
+  <ul>
+    <li><a href = {{url_for('show_short_csv', filename = "cna_1417_20592.csv") }} >cna_1417_20592.csv</a></li>
+    <li><a href = {{url_for('show_short_csv', filename = "methy_1417_12088.csv")}} >methy_1417_12088.csv</a></li>
+    <li><a href = {{url_for('show_short_csv', filename = "mrna_1417_22079.csv ")}}  >mrna_1417_22079.csv</a></li>
+    <li><a href = {{url_for('show_short_csv', filename = "breast__CLAUDIN_SUBTYPE_1471.csv")}}  >Breast_CLAUDIN_SUBTYPE_1471.csv</a></li>
+  </ul>
+  <h1>Download Zip File</h1>
+  <p>Click the button below to download the zip file to your local computer directory.</p>
+  <a href="#" onclick="downloadZipFile();">
+    <button>Download Zip File</button>
+  </a>
+
+<script>
+function downloadZipFile() {
+    window.location.href = "/static/download-zip/BreastData_1417.rar";
+      }
+</script>
+{% endblock %}

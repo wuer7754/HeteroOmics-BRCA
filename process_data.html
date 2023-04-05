@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Processed Data</title>
+</head>
+<body>
+  <h1>Run  Result</h1>
+  <div style="height: 500px; width: 800px; overflow: scroll;">
+    {{ processed_data.to_html() | safe }}
+  </div>
+  <div>
+    <a href ="#" nclick="downloadProcessedData()">
+      <button o>Download Processed Data</button>
+    </a>
+  </div>
+  <script>
+    function downloadProcessedData() {
+      var data = {{ processed_data.to_csv(index=False) | safe }};
+      var blob = new Blob([data], {type: 'text/csv'});
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'processed_data.csv';
+      console.log()
+      link.click();
+      window.URL.revokeObjectURL(link.href);
+    }
+  </script>
+
+</body>
+</html>

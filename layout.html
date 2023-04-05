@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}{% endblock %}</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/snf.css">
+		<link rel="stylesheet" type="text/css" href = "static/css/upload.css">
+		<link rel="stylesheet" type="text/css" href="/static/css/gcn.css">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/download.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename = 'css/styles.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename = 'css/data_clean.css') }}">
+	</head>
+	<body class="loggedin">
+		<nav class="navtop">
+			<img class ='logo' src = 'static/image/logo.png'>
+			<div class="welcome-message">
+      		{% if session.logged_in %}
+      		Welcome back, {{ session.username }}!
+    		<a href="{{ url_for('logout') }}">Logout</a>
+    		{% endif %}
+			</div>
+			<div class = "nav-top">
+				<a href="/index">Home</a>
+				<a href="/data_cleaning">Data Cleaning Tools</a>
+                <a href="/download-zip">The Raw Data</a>
+      			<a href="/ae_reduction">Reduce Dimension</a>
+      			<a href="/snf_network">Patient-to-Patient Network</a>
+      			<a href="/gcn_predict">Using GCN to Predict Subtype</a>
+
+			</div>
+		</nav>
+		<div class="content">
+			{% block content %}{% endblock %}
+		</div>
+	</body>
+</html>

@@ -1,0 +1,146 @@
+{% extends 'layout.html' %}
+
+{% block title %}Autoencoder: Data Dimensionality Reduction{% endblock %}
+
+{% block content %}
+      <header>
+      <h1>Autoencoder: Data Dimensionality Reduction</h1>
+      </header>
+
+      <section>
+      <h2> Introduction</h2>
+      <h3>
+         Autoencoder is a type of neural network that is commonly used for unsupervised learning tasks. It consists of an encoder and a decoder, which work together to compress and then reconstruct data.
+        The encoder takes in input data and maps it to a lower-dimensional representation, or code. The decoder then takes this code and reconstructs the original input data as closely as possible. The goal of training an autoencoder is to minimize the difference between the original input data and the reconstructed output.
+        Autoencoders can be used for various tasks such as data compression, image denoising, and anomaly detection. They are also a fundamental building block for more complex deep learning models.
+      </h3>
+      </section>
+
+       <section>
+        <h2>Input Form</h2>
+        <p>
+          Please input three omics data files (.csv) and three parameters (a, b, c)
+          with the following requirements:
+        </p>
+        <ul>
+          <li>The three omics data files should have the same number of rows.</li>
+          <li>
+            The weights for each omics data file should sum to 1.
+          </li>
+        </ul>
+        <form id = "myForm" action = "/run_ae_reduction" method="POST" enctype="multipart/form-data"><!-- 看来form中的特性不一般-->
+          <label for="omics-data-1">Omics Data 1:</label>
+          <input type="file" id="omics-data-1" name="omics-data-1">
+          <label for="omics-data-2">Omics Data 2:</label>
+          <input type="file" id="omics-data-2" name="omics-data-2">
+          <label for="omics-data-3">Omics Data 3:</label>
+          <input type="file" id="omics-data-3" name="omics-data-3">
+          <br />
+          <label for="parameter-a">Parameter a:</label>
+          <input type="text" id="parameter-a" name="parameter-a">
+          <label for="parameter-b"> Parameter b:</label>
+          <input type="text" id="parameter-b" name="parameter-b">
+          <label for="parameter-c">Parameter c:</label>
+          <input type="text" id="parameter-c" name="parameter-c">
+           <label for="lr">learning_rate:</label>
+           <input type="number" name="lr" id="lr" value = "0.001"  >
+          <label for="batch_size">Batch Size:</label>
+          <input type="number" name="batch_size" id="batch_size" value = "64" step = "10" >
+           <label for="epoch">Epoch :</label>
+          <input type="number" name="epoch" id="epoch" value = "100" step = "10" >
+            <label for="latent">Latent Size(The latent layer dim, default: 100):</label>
+          <input type="number" name="latent" id="latent" value = "100" step = "10" >
+            <label for="topn">topN Size(Extract top N features every 10 epochs, default: 100):</label>
+          <input type="number" name="topn" id="topn" value = "100" step = "10" >
+
+            <label for="mode">Select (train & intagrate) or train or intagrate to compute:</label>
+            <select id="mode" name="mode">
+                <option value="0">train & intagrate</option>
+                <option value="1">train</option>
+                <option value="2">intagrate</option>
+            </select>
+        </form>
+        <button class="run-button" onclick="submitForm()">Run Autoencoder Model</button>
+
+          {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+             </ul>
+        {% endif %}
+        {% endwith %}
+       </section>
+     <section>
+          <div id="train-visualization">
+            <h2> Train Visualization </h2>
+            <p> The training result of an autoencoder is a set of latent data that has been extracted from the original data by the encoder. The latent data typically has a lower dimensionality than the original data but still retains important features. These latent data can be used by the decoder to reconstruct the original data or for tasks such as clustering and dimensionality reduction. The training process of an autoencoder involves continuously adjusting the parameters of the encoder and decoder to best reconstruct the original data with the latent data, thereby achieving the goal of learning useful representations.
+Regenerate response</p>
+            <a href="/load_ae_model" target="_blank">
+                <button>Show Latent Data</button>
+            </a>
+            <h2> Show Train Loss Figture </h2>
+            <p>The autoencoder train loss figure shows the progression of the loss function during the training process of an autoencoder. The loss function measures the difference between the original data and the reconstructed data produced by the autoencoder. As the autoencoder is trained, the parameters of the encoder and decoder are adjusted to minimize the loss function, leading to more accurate reconstructions of the original data. </p>
+            <a href="/show_loss_figure" target="_blank">
+                <button>Show loss Figture</button>
+            </a>
+            <h2> Show Top N genes of one Omics group</h2>
+              <p>
+                  Autoencoder is a type of neural network used for unsupervised learning that can learn useful representations of the input data by encoding it into a lower-dimensional space and then decoding it back to its original form. In the context of genomics, autoencoders can be used to extract the most relevant genes from a large dataset.
+              </p>
+              <p>
+                  To do this, the autoencoder model is trained on the omics data, such as gene expression or methylation, for a certain number of epochs, typically 100. After each 10 epochs, the top N genes are extracted from the encoded data for each omics file, where N is a pre-defined number of genes to be extracted. These genes are considered the most important features that can represent the original omics data with minimal loss.
+              </p>
+
+                <label for="csv-select">Select one topn omics ：</label>
+                <select id="csv-select">
+                      <option value="topn_omics_1.csv">topn_omics_1.csv</option>
+                      <option value="topn_omics_2.csv">topn_omics_2.csv</option>
+                      <option value="topn_omics_3.csv">topn_omics_3.csv</option>
+                </select>
+                <button onclick="showTopNOmics()">Show  topN genes of one omices </button>
+          </div>
+     </section>
+
+          <section>
+        <div id="model-info">
+            <h2>Model info</h2>
+            <p>Showing the autoencoder model info is significant as it provides a visual representation of the neural network architecture and helps users understand how the model transforms input data into a lower-dimensional representation. <p>
+
+            <a href="/show_ae_reduction_results" target="_blank">
+                <button>Show Model Info</button>
+            </a>
+            <p id="selected-value"></p>
+        </div>
+          </section>
+
+
+<script>
+function submitForm() {
+  // Get form data
+  const form = document.getElementById("myForm");
+  const formData = new FormData(form);
+
+  // Check if parameters add up to 1
+  const paramA = parseFloat(formData.get("parameter-a"));
+  const paramB = parseFloat(formData.get("parameter-b"));
+  const paramC = parseFloat(formData.get("parameter-c"));
+  const sum = paramA + paramB + paramC;
+  if (sum !== 1) {
+    alert("Error: parameters must add up to 1.");
+    return;
+  }
+
+  // Submit form
+  form.submit();
+}
+
+function showTopNOmics() {
+    const selectedValue = document.getElementById('csv-select').value;
+    const url = `/show_topN_omics_x?csv=${selectedValue}`;
+    window.location.href = url;
+    document.getElementById('selected-value').innerText = selectedValue;
+  }
+</script>
+{% endblock %}

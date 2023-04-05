@@ -1,0 +1,96 @@
+{% extends 'layout.html' %}
+
+{% block title %}SNF :build patient-to-patient network{% endblock %}
+
+{% block content %}
+
+    <header>
+      <h1>SNF: build patient-to-patient network</h1>
+    </header>
+
+    <section>
+      <h2>1. Introduce Similarity Network Fusion</h2>
+      <p>Similarity Network Fusion (SNF) is a powerful method for integrating multiple omics datasets into a single network. SNF constructs a new network that captures shared information across multiple datasets and provides a more comprehensive view of the underlying biological processes.</p>
+    </section>
+
+    <section>
+      <h2>2. Introduce Steps to Run SNF</h2>
+      <ol>
+        <li>Upload omics data 1, omics data 2, and omics data 3.</li>
+        <li>Set parameters:
+          <ul>
+            <li>Select number of neighbors (K),See Notes of :py:func snf.compute.affinity_matrix for more details. Default: 20.</li>
+            <li>Normalization factor to scale similarity kernel when constructing affinity matrix,(0, 1) float.See Notes of :py:func snf.compute.affinity_matrix for more details. Default: 0.5. </li>
+              <li>Distance metric to compute. Must be one of available metrics in :py:func scipy.spatial.distance.pdist</li>
+          </ul>
+        </li>
+        <li>Click the "Run" button to perform SNF.</li>
+        <li>Click the "Download SNF Matrix" button to download the final SNF matrix.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>3. Run SNF</h2>
+      <form method="POST" action="/run-snf" enctype="multipart/form-data">
+        <label for="data1">Omics Data 1:</label>
+        <input type="file" name="data1" id="data1"><br>
+        <label for="data2">Omics Data 2:</label>
+        <input type="file" name="data2" id="data2"><br>
+        <label for="data3">Omics Data 3:</label>
+        <input type="file" name="data3" id="data3"><br>
+        <label for="k">Number of Neighbors (K):</label>
+        <input type="number" name="k" id="k" value="10"><br>
+        <label for="mu">Normalization factor(mu):</label>
+        <input type="number" name="mu" id="mu" step="0.1" value="0.5"><br>
+        <label for="distance">Distance metric to compute:</label>
+            <select id="distance" name="distance">
+<!--                时，浏览器会将光标移动到相应的表单元素上。此外，这也是一个无障碍性的最佳实践，使屏幕阅读器能够正确地将标签读给用户，让他们知道该表单元素的用途-->
+                  <option value="braycurtis">braycurtis</option>
+                  <option value="canberra">canberra</option>
+                  <option value="chebyshev">chebyshev</option>
+                  <option value="cityblock">cityblock</option>
+                  <option value="correlation">correlation</option>
+                  <option value="cosine">cosine</option>
+                  <option value="dice">dice</option>
+                  <option value="euclidean">euclidean</option>
+                  <option value="hamming">hamming</option>
+                  <option value="jaccard">jaccard</option>
+                  <option value="kulsinski">kulsinski</option>
+                  <option value="mahalanobis">mahalanobis</option>
+                  <option value="matching">matching</option>
+                  <option value="minkowski">minkowski</option>
+                  <option value="rogerstanimoto">rogerstanimoto</option>
+                  <option value="russellrao">russellrao</option>
+                  <option value="seuclidean">seuclidean</option>
+                  <option value="sokalmichener">sokalmichener</option>
+                  <option value="sokalsneath">sokalsneath</option>
+                  <option value="sqeuclidean">sqeuclidean</option>
+                  <option value="wminkowski">wminkowski</option>
+                  <option value="yule">yule</option>
+                </select>
+          <button type = "submit">Run</button>
+      </form>
+    </section>
+    <section>
+      <h2>4. Download the Final SNF Matrix</h2>
+      <a href ="#" onclick = "download_snf();">
+        <button >Download SNF Matrix</button>
+      </a>
+    </section>
+    <section>
+      <h2>5. Show SNF Matrix Clustering Map</h2>
+      <a href ="#" onclick = "show_clustering_map();">
+        <button >Download SNF Matrix Clustering Map</button>
+      </a>
+    </section>
+
+<script>
+function download_snf() {
+  window.location.href = '/static/model/SNF/SNF_fused_matrix.csv';
+}
+function show_clustering_map() {
+  window.location.href = '/static/model/SNF/SNF_fused_clustermap.png';
+}
+
+</script>
+{% endblock %}
