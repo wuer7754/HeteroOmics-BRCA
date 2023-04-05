@@ -1,0 +1,126 @@
+/* GCN Page Styles */
+
+/* General Styles */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: #369;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+/* Header */
+
+header {
+  background-color: #007ACC;
+  color: #fff;
+  text-align: center;
+  margin:  20px 0;
+
+}
+
+
+
+/* Sections */
+
+section {
+  padding: 40px;
+}
+
+section:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+/* Forms */
+
+form {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+}
+form input{
+  magin-left:auto;
+  magin_rigth:auto;
+}
+
+
+form label {
+  display: block;
+  margin-bottom: 10px;
+
+
+}
+
+form input[type="file"] {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width : 90%;
+
+}
+form input[type="text"] {
+    display: block;
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 90%;
+}
+select #distance{
+    margin-bottom: 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+form button {
+  background-color: #4444;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  margin: 20px auto;
+  width: 90%;
+}
+form button:hover {
+    background-color: #007ACC;
+}
+
+button {
+  background-color: #007ACC;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px ;
+  cursor: pointer;
+  font-size: 16px;
+}
+/* Style the download button */
+section:nth-of-type(4) button {
+  background-color:  #007ACC;
+}
+
+section:nth-of-type(4) button:hover {
+  background-color: #43A047;
+}

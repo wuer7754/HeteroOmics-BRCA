@@ -1,0 +1,103 @@
+/* Global styles */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+/* Header styles */
+
+header {
+  text-align: center;
+  background-color: #f1f1f1;
+  padding: 20px;
+
+}
+
+h1 {
+  font-size: 36px;
+  margin: 0;
+  background-color: #333;
+  color: #fff;
+}
+
+/* Section styles */
+
+section {
+  margin-left: auto;
+  margin-right : auto;
+  margin-top: 40px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width:80%;
+  align-items: center;
+}
+
+h2 {
+  font-size: 24px;
+  margin: 0 0 20px;
+}
+
+p {
+  line-height: 1.5;
+}
+
+ul, ol {
+  padding-left: 20px;
+  line-height: 1.5;
+}
+
+/* Form styles */
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+input[type="file"], input[type="number"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+select#distance{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 18px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #3e8e41;
+}

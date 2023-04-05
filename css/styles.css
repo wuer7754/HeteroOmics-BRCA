@@ -1,0 +1,50 @@
+/* 定义导航栏的样式 */
+.navtop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f2f2f2;
+  padding: 10px;
+}
+
+/* 定义导航栏标题的样式 */
+.navtop .logo {
+  height: 40px;
+  margin-right: 20px;
+}
+
+/* 定义欢迎信息和链接的样式 */
+.navtop .welcome-message,
+.navtop .nav-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+/* 定义欢迎信息的样式 */
+.navtop .welcome-message {
+  margin-right: 20px;
+  font-size: 16px;
+}
+
+/* 定义链接的样式 */
+.navtop .nav-top a {
+  display: block;
+  color: #666;
+  text-decoration: none;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+/* 当鼠标悬停在链接上时改变背景颜色 */
+.navtop .nav-top a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* 当链接处于活动状态（即当前所在页面）时改变背景颜色 */
+.navtop .nav-top a.active {
+  background-color: #4CAF50;
+  color: white;
+}
