@@ -19,7 +19,8 @@ pip install breast-subtype-analysis
 breast-subtype
 model-log
 ```
-
+## 数据获取
+https://figshare.com/account/home 
 
 ## 注意事项
 
